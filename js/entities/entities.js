@@ -71,16 +71,8 @@ game.PlayerEntity = me.Entity.extend({
             this.renderable.setCurrentAnimation("stand");
         }
 
-        if (me.input.isKeyPressed('jump')) {
-            // make sure we are not already jumping or falling
-            if (!this.body.jumping && !this.body.falling) {
-                // set current vel to the maximum defined value
-                // gravity will then do the rest
-                this.body.vel.y = -this.body.maxVel.y * me.timer.tick;
-
-                // set the jumping flag
-                this.body.jumping = true;
-            }
+        if (me.input.isKeyPressed('action')) {
+            game.doors.renderable.setCurrentAnimation('open');
         }
 
         // apply physics to the body (this moves the entity)
@@ -110,9 +102,9 @@ game.PlayerEntity = me.Entity.extend({
                 break;
             case me.collision.types.ENEMY_OBJECT:
                 if (other.name == 'whitey') {
-                    if (me.input.isKeyPressed('action')) {
-                        console.log(1);
-                    }
+                    // if (me.input.isKeyPressed('action')) {
+                    //     console.log(1);
+                    // }
                 }
                 if (other.type == 'doors') {
                     // gdy mamy klucz uznajemy, ze drzwi otwarte - zerujemy kolizje
@@ -158,7 +150,7 @@ game.DoorsEntity = me.Entity.extend({
     init: function (x, y, settings) {
         this._super(me.Entity, "init", [x, y, settings]);
         this.renderable.addAnimation("stay", [1]);
-        this.renderable.addAnimation("open", [2]);
+        this.renderable.addAnimation("open", [3]);
         this.renderable.setCurrentAnimation("stay");
     },
 });
